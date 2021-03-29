@@ -27,6 +27,7 @@ namespace PortalFall.PlayerControls
         void Update()
         {
             _transform.Translate(Vector3.down * _playerMovementSettings.FallSpeed * Time.deltaTime, Space.World);
+            
         }
 
         IEnumerator ReadyToFall()

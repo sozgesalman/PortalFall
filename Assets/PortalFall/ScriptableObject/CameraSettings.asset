@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b246ad0a08f5828418bf5efd098483e1, type: 3}
   m_Name: CameraSettings
   m_EditorClassIdentifier: 
-  _positionOffSet: {x: 0, y: 0, z: 0}
-  _positionLerp: 1
+  _positionOffSet: {x: 2, y: 0, z: -9.53}
+  _positionLerp: 4
