@@ -12,7 +12,8 @@ namespace PortalFall.PlayerControls
         public float PortalSpeed = 2;
         public float TimeBeforeFall = 5;
 
+        [SerializeField] private Vector3 _positionOffSet;
+        public Vector3 PositionOffSet { get { return _positionOffSet; } }
 
-        
     }
 }

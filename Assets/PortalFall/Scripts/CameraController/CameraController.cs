@@ -10,7 +10,7 @@ namespace PortalFall.Camera
         [SerializeField] private Transform _positionTarget;
         [SerializeField] private Transform _cameraTransform;
         
-
+       
         private void Update()
         {
             CameraMovementFollow();            
