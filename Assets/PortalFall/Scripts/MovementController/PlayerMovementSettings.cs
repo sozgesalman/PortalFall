@@ -14,6 +14,5 @@ namespace PortalFall.PlayerControls
 
         [SerializeField] private Vector3 _positionOffSet;
         public Vector3 PositionOffSet { get { return _positionOffSet; } }
-
     }
 }

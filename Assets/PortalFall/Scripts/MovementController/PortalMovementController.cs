@@ -11,15 +11,10 @@ namespace PortalFall.Portal
         [SerializeField] private Transform _transform;
         [SerializeField] private Transform _player;
         [SerializeField] private PlayerMovementSettings _playerMovementSettings;
-        private bool _push = false;
-
-        
-
-
+         
         void Update()
         {
-            LineFollow();                        
-
+            LineFollow();
         }
 
         protected void LineFollow()

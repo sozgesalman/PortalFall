@@ -10,32 +10,29 @@ namespace PortalFall.PlayerControls
         [SerializeField] private Transform _transform;
         [SerializeField] private bool _canFall;
         [SerializeField] private PlayerMovementSettings _playerMovementSettings;
-       
-        
-        void Start()
-        {
-            Invoke("DisplayPlayer", 2);
-            StartCoroutine(ReadyToFall());
+  
+        //void Start()
+        //{
+        //    Invoke("DisplayPlayer", 2);
+        //    StartCoroutine(ReadyToFall());
             
-        }
-        public void DisplayPlayer()
-        {
-            _player.SetActive(true);
-        }
+        //}
+        //public void DisplayPlayer()
+        //{
+        //    _player.SetActive(true);
+        //}
 
-       
         void Update()
         {
-            _transform.Translate(Vector3.down * _playerMovementSettings.FallSpeed * Time.deltaTime, Space.World);
-            
+            _transform.Translate(Vector3.down * _playerMovementSettings.FallSpeed * Time.deltaTime, Space.World);            
         }
 
-        IEnumerator ReadyToFall()
-        {
-            _canFall = false;
-            yield return new WaitForSeconds(_playerMovementSettings.TimeBeforeFall);
-            _canFall = true;
-        }
+        //IEnumerator ReadyToFall()
+        //{
+        //    _canFall = false;
+        //    yield return new WaitForSeconds(_playerMovementSettings.TimeBeforeFall);
+        //    _canFall = true;
+        //}
 
         
     }
