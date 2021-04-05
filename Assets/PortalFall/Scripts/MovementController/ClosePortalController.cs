@@ -11,80 +11,76 @@ namespace PortalFall.Portal
         int current = 0;
         float WPradius = 0.1f;
 
-        [SerializeField] private GameObject _line ;
-        [SerializeField] private Transform _transform ;
+        [SerializeField] private GameObject _line;
         [SerializeField] private Transform _player;
-        [SerializeField] private PlayerMovementSettings _playerMovementSettings ;
-        [SerializeField] private GameObject[] _forVisibilty ;
-        private Collision _collision;
+        [SerializeField] private PlayerMovementSettings _playerMovementSettings;
+        [SerializeField] private GameObject[] _forVisibilty;
+        public Touch _touch;
+
 
         void Update()
         {
             
+            Vector3 offset = (_line.transform.up * _playerMovementSettings.PositionOffSet.y);
 
             for (int i = 0; i < _forVisibilty.Length; i++)
             {
-                _forVisibilty[i].GetComponent<Renderer>().enabled = false ;
-                _forVisibilty[i].GetComponent<Collider>().enabled = false ;
-                
-            }
-
-
-            if (!Input.GetKey(KeyCode.V))
-            {
-                Vector3 offset = (_transform.up * _playerMovementSettings.PositionOffSet.y);
-                _transform.position = Vector3.Lerp(_transform.position, _player.position - offset, Time.deltaTime);
+                _forVisibilty[i].GetComponent<Renderer>().enabled = false;
+                _forVisibilty[i].GetComponent<Collider>().enabled = false;
 
             }
 
-
-            if (Vector3.Distance(waypoints[current].transform.position, _transform.position) < WPradius)
+            if (Vector3.Distance(waypoints[current].transform.position, _line.transform.position) < WPradius)
             {
-                current++ ;
+                current++;
                 if (current >= waypoints.Length)
                 {
-                    current = 0 ;
+                    current = 0;
                 }
             }
 
-            if (Input.GetKey(KeyCode.V))                
+            if (Input.touchCount > 0)
             {
-                
-                for (int i = 0; i < _forVisibilty.Length; i++)
+                _touch = Input.GetTouch(0);
+                if (_touch.phase == TouchPhase.Stationary)
                 {
-                    _forVisibilty[i].GetComponent<Renderer>().enabled = true ;
-                    _forVisibilty[i].GetComponent<Collider>().enabled = true;
+                    
+
+                    for (int i = 0; i < _forVisibilty.Length; i++)
+                    {
+                        _forVisibilty[i].GetComponent<Renderer>().enabled = true;
+                        _forVisibilty[i].GetComponent<Collider>().enabled = true;
+                    }
+
+                    _line.transform.position = Vector3.MoveTowards(_line.transform.position, waypoints[current].transform.position, Time.deltaTime * _playerMovementSettings.PortalSpeed);
                 }
-                _transform.position = Vector3.MoveTowards(_transform.position, waypoints[current].transform.position, Time.deltaTime * _playerMovementSettings.PortalSpeed) ;
+
             }
-            else if (Input.GetKeyUp(KeyCode.V))
+            if (_touch.phase == TouchPhase.Ended)
             {
+
                 for (int i = 0; i < _forVisibilty.Length; i++)
                 {
                     _forVisibilty[i].GetComponent<Renderer>().enabled = true;
                     _forVisibilty[i].GetComponent<Collider>().enabled = true;
+
+                    _line.transform.position = Vector3.MoveTowards(_line.transform.position, waypoints[current].transform.position, Time.deltaTime * 0);
+                    
                 }
+
+            }
+
+            else if (!Input.GetKey(KeyCode.V))
+            {
                 
-                //_transform.GetComponent<Transform>().enabled = false;
+
+                _line.transform.position = Vector3.Lerp(_line.transform.position, _player.position - offset, Time.deltaTime);
             }
 
         }
 
-        void OnCollisionEnter(Collision collision)
-        {
-            //Check for a match with the specified name on any GameObject that collides with your GameObject
-            if (collision.gameObject == _player)
-            {
-                //If the GameObject's name matches the one you suggest, output this message in the console
-                Debug.Log("Do something here");
-            }
 
-            //Check for a match with the specific tag on any GameObject that collides with your GameObject
-            if (collision.gameObject == _line)
-            {
-                //If the GameObject has the same tag as specified, output this message in the console
-                Debug.Log("Do something else here");
-            }
-        }
     }
 }
+
+

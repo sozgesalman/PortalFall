@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PortalFall.Portal;
 
 namespace PortalFall.PlayerControls
 {
@@ -10,6 +11,7 @@ namespace PortalFall.PlayerControls
         [SerializeField] private Transform _transform;
         [SerializeField] private bool _canFall;
         [SerializeField] private PlayerMovementSettings _playerMovementSettings;
+        Touch _touch;
   
         //void Start()
         //{
@@ -23,8 +25,14 @@ namespace PortalFall.PlayerControls
         //}
 
         void Update()
-        {
-            _transform.Translate(Vector3.down * _playerMovementSettings.FallSpeed * Time.deltaTime, Space.World);            
+        {   if (!Input.GetKey(KeyCode.V))
+            {
+                _transform.Translate(Vector3.down * _playerMovementSettings.FallSpeed * Time.deltaTime, Space.World);
+            }
+            else if(_touch.phase == TouchPhase.Ended)
+            {
+                _transform.Translate(Vector3.down * 20 * Time.deltaTime, Space.World);
+            }
         }
 
         //IEnumerator ReadyToFall()
