@@ -12,7 +12,7 @@ namespace PortalFall.PlayerControls
         [SerializeField] private bool _canFall;
         [SerializeField] private PlayerMovementSettings _playerMovementSettings;
         Touch _touch;
-  
+
         //void Start()
         //{
         //    Invoke("DisplayPlayer", 2);
@@ -25,16 +25,28 @@ namespace PortalFall.PlayerControls
         //}
 
         void Update()
-        {   if (!Input.GetKey(KeyCode.V))
+        {
+            if (Input.touchCount > 0)
+            {
+                _touch = Input.GetTouch(0);
+                if (_touch.phase == TouchPhase.Stationary)
+                {
+                    _transform.Translate(Vector3.down * 1 * Time.deltaTime, Space.World);
+                }              
+            }
+
+
+            if (_touch.phase == TouchPhase.Ended)
+            {
+                _transform.Translate(Vector3.down * 8 * Time.deltaTime, Space.World);
+
+            }
+            else if (!Input.GetKey(KeyCode.V))
             {
                 _transform.Translate(Vector3.down * _playerMovementSettings.FallSpeed * Time.deltaTime, Space.World);
             }
-            else if(_touch.phase == TouchPhase.Ended)
-            {
-                _transform.Translate(Vector3.down * 20 * Time.deltaTime, Space.World);
-            }
         }
-
+       
         //IEnumerator ReadyToFall()
         //{
         //    _canFall = false;
@@ -42,6 +54,6 @@ namespace PortalFall.PlayerControls
         //    _canFall = true;
         //}
 
-        
+
     }
 }
